@@ -1,5 +1,5 @@
 ﻿
-const CACHE_NAME = "deep-cards-v1";
+const CACHE_NAME = "deep-cards-v2";
 
 const FILES = [
     "./",
