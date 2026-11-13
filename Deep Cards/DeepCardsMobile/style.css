@@ -1,0 +1,82 @@
+﻿
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #222;
+}
+
+.card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 20px;
+}
+
+.game-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: 20px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+    .game-card h1 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+#levelTitle {
+    font-size: 20px;
+}
+
+.level-1 {
+    color: #16a085;
+}
+
+.level-2 {
+    color: #f59e0b;
+}
+
+.level-3 {
+    color: #dc2626;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+#questionText {
+    font-size: 24px;
+    line-height: 1.5;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#nextButton {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: #222;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+    #nextButton:active {
+        transform: scale(0.98);
+    }

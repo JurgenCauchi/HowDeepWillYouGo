@@ -4,7 +4,8 @@ using System.Net;
 var builder = WebApplication.CreateBuilder(args);
 
 // Use a fixed localhost address
-builder.WebHost.UseUrls("http://localhost:5050");
+//builder.WebHost.UseUrls("http://localhost:5050");
+builder.WebHost.UseUrls("http://0.0.0.0:5050");
 
 builder.Services.AddControllersWithViews();
 

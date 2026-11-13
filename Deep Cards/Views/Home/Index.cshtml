@@ -1,29 +1,25 @@
 ﻿@model Deep_Cards.Model.Card
 
 @{
-    ViewData["Title"] = "Icebreaker Game";
+    ViewData["Title"] = "Deep Cards";
 }
 
 <div class="card-container">
     <div class="game-card">
 
-        <h3 class="level-@Model.Level">Level @Model.Level</h3>
+        <h3 id="levelTitle" class="level-@Model.Level">
+            Level @Model.Level
+        </h3>
+
         <hr />
 
-        <h2>@Model.Text</h2>
+        <h2 id="questionText">@Model.Text</h2>
 
-        <a asp-controller="Home"
-           asp-action="Index"
-           asp-route-id="@ViewBag.NextId"
-           class="btn btn-primary">
-
-            @(ViewBag.NextId == 0
-                ? "Restart Game"
-                : ViewBag.IsLastCardInLevel
-                    ? "Next Level"
-                    : "Next Card") →
-
-        </a>
+        <button id="nextButton"
+                class="btn btn-primary"
+                onclick="nextCard()">
+            Next Card →
+        </button>
 
     </div>
 </div>
@@ -45,19 +41,62 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.15);
     }
 
-        .game-card .level-1 {
-            color: #16a085;
-        }
+    .game-card h2 {
+        margin: 30px 0;
+    }
 
-        .game-card .level-2 {
-            color: #f59e0b;
-        }
+    .game-card .level-1 {
+        color: #16a085;
+    }
 
-        .game-card .level-3 {
-            color: #dc2626;
-        }
+    .game-card .level-2 {
+        color: #f59e0b;
+    }
 
-        .game-card h2 {
-            margin: 30px 0;
-        }
+    .game-card .level-3 {
+        color: #dc2626;
+    }
 </style>
+
+<script>
+    let nextId = @ViewBag.NextId;
+
+    async function nextCard() {
+        const button = document.getElementById("nextButton");
+        button.disabled = true;
+
+        try {
+            const response = await fetch(
+                `/Home/GetCard?id=${nextId}`
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to load card");
+            }
+
+            const card = await response.json();
+
+            const levelTitle = document.getElementById("levelTitle");
+
+            levelTitle.textContent = `Level ${card.level}`;
+            levelTitle.className = `level-${card.level}`;
+
+            document.getElementById("questionText").textContent = card.text;
+
+            nextId = card.nextId;
+
+            button.textContent =
+                nextId === 0
+                    ? "Restart Game →"
+                    : card.isLastCardInLevel
+                        ? "Next Level →"
+                        : "Next Card →";
+
+        } catch (error) {
+            console.error(error);
+            alert("Could not load the next card.");
+        } finally {
+            button.disabled = false;
+        }
+    }
+</script>

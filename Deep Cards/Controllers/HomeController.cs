@@ -91,5 +91,33 @@ namespace Deep_Cards.Controllers
 
             return View(deck[id]);
         }
+
+
+        [HttpGet]
+        public IActionResult GetCard(int id)
+        {
+            var deckJson = HttpContext.Session.GetString("Deck");
+
+            if (deckJson == null)
+                return BadRequest("Game session not found.");
+
+            var deck = System.Text.Json.JsonSerializer
+                .Deserialize<List<Card>>(deckJson)!;
+
+            if (id < 0 || id >= deck.Count)
+                return BadRequest("Invalid card.");
+
+            var card = deck[id];
+
+            return Json(new
+            {
+                level = card.Level,
+                text = card.Text,
+                nextId = (id + 1) % deck.Count,
+                isLastCardInLevel =
+                    id == deck.Count - 1 ||
+                    card.Level != deck[id + 1].Level
+            });
+        }
     }
 }
