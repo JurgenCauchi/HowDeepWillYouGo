@@ -1,0 +1,63 @@
+﻿@model Deep_Cards.Model.Card
+
+@{
+    ViewData["Title"] = "Icebreaker Game";
+}
+
+<div class="card-container">
+    <div class="game-card">
+
+        <h3 class="level-@Model.Level">Level @Model.Level</h3>
+        <hr />
+
+        <h2>@Model.Text</h2>
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           asp-route-id="@ViewBag.NextId"
+           class="btn btn-primary">
+
+            @(ViewBag.NextId == 0
+                ? "Restart Game"
+                : ViewBag.IsLastCardInLevel
+                    ? "Next Level"
+                    : "Next Card") →
+
+        </a>
+
+    </div>
+</div>
+
+<style>
+    .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+    }
+
+    .game-card {
+        background: white;
+        border-radius: 15px;
+        padding: 40px;
+        width: 350px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+        .game-card .level-1 {
+            color: #16a085;
+        }
+
+        .game-card .level-2 {
+            color: #f59e0b;
+        }
+
+        .game-card .level-3 {
+            color: #dc2626;
+        }
+
+        .game-card h2 {
+            margin: 30px 0;
+        }
+</style>
