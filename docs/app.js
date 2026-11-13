@@ -54,7 +54,7 @@
 
 function shuffleDeck() {
     return [1, 2, 3].flatMap(level => {
-        const cards = questions.filter(q => q.level === level);
+        const cards = questions.filter(q => q.Level === Level);
 
         for (let i = cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -76,14 +76,14 @@ const nextButton = document.getElementById("nextButton");
 function showCard() {
     const card = deck[currentIndex];
 
-    levelTitle.textContent = `Level ${card.level}`;
-    levelTitle.className = `level-${card.level}`;
+    levelTitle.textContent = `Level ${card.Level}`;
+    levelTitle.className = `level-${card.Level}`;
 
-    questionText.textContent = card.text;
+    questionText.textContent = card.Text;
 
     if (currentIndex === deck.length - 1) {
         nextButton.textContent = "Restart Game →";
-    } else if (card.level !== deck[currentIndex + 1].level) {
+    } else if (card.Level !== deck[currentIndex + 1].Level) {
         nextButton.textContent = "Next Level →";
     } else {
         nextButton.textContent = "Next Card →";
