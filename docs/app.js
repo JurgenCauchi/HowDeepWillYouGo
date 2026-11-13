@@ -52,9 +52,10 @@
     { Level: 3, Text: "What would you change about your life if you knew nobody would judge you?" }
 ];
 
+
 function shuffleDeck() {
     return [1, 2, 3].flatMap(level => {
-        const cards = questions.filter(q => q.Level === Level);
+        const cards = questions.filter(q => q.Level === level);
 
         for (let i = cards.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
